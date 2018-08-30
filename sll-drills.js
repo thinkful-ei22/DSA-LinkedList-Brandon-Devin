@@ -56,6 +56,21 @@ function main (){
   // display(sll);
 
   console.log('3rd to last node: ', thirdFromTheEnd(sll));
+
+  console.log('Mid node: ', middleOfList(sll));
+
+  const cycleList = new SLL();
+  cycleList.insertLast('ONE');
+  cycleList.insertLast('TWO');
+  cycleList.insertLast('THREE');
+  cycleList.insertLast('FOUR');
+  cycleList.insertLast('FIVE');
+
+  let thirdLastNode = thirdFromTheEnd(cycleList);
+  let lastNode = findLast(cycleList);
+  lastNode.next = thirdLastNode;
+  console.log('is cycleList cyclical: ', isListCyclical(cycleList));
+  console.log('is sll cyclical: ', isListCyclical(sll));
 }
 
 function display (linkedList){
@@ -128,16 +143,11 @@ function reverseList(linkedList){
   }
 
   while (curNode.next !== null){
-   
-
     nextNode = curNode.next;
     curNode.next = prevNode;
     prevNode = curNode;
-    
    
     curNode = nextNode;
-
-
   }
   linkedList.head = curNode;
   curNode.next = prevNode;
@@ -154,18 +164,50 @@ function thirdFromTheEnd (linkedList){
   prevTwoNode = curNode;
   curNode = curNode.next.next;
 
-  while (curNode.next !== null)
-  {
-
+  while (curNode.next !== null){
     curNode = curNode.next;
     prevTwoNode = prevTwoNode.next;
-
   }
 
   return prevTwoNode;
 }
 
+function middleOfList(linkedList){
+  let endNode = linkedList.head;
+  let midNode = linkedList.head;
+  let shouldIncrement = false;
 
+  if(endNode === null)
+    return endNode;
+  
+  while(endNode.next !== null){
+    endNode = endNode.next;
+
+    if(shouldIncrement)
+      midNode = midNode.next;
+
+    shouldIncrement = !shouldIncrement;
+  }
+
+  return midNode;
+}
+
+function isListCyclical(linkedList){
+  let curNode = linkedList.head;
+  const nodeArr = [];
+
+  while(curNode !== null){
+    for(let i = 0; i < nodeArr.length; i++){
+      if(nodeArr[i] === curNode)
+        return true;
+    }
+    
+    nodeArr.push(curNode);
+    curNode = curNode.next;
+  }
+
+  return false;
+}
 
 main();
 
