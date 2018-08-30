@@ -106,6 +106,12 @@ function findLast(linkedList){
   return curNode;
 }
 
+/*  Mystery Program
+ *    function WhatDoesThisProgramDo() removes
+ *    all duplicate items in a linked list.
+ * 
+ *    Runtime: Polynomial, O(n^2)
+ */
 
 main();
 
